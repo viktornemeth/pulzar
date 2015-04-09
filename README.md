@@ -1,6 +1,8 @@
-XCHAT4U
+Pulzar3
 =======
-Adult Chat
+lightweight CMS
 
-Engine: Chakra 3
-URL: http://www.xchat4u.com
+Engine: Pulzar
+URL: none
+Developer: Viktor Németh
+Started: 2015
