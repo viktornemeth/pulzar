@@ -1,0 +1,83 @@
+<div class="tools">
+   <h1>Banner zónák</h1>
+</div>
+<table cellpadding="0" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th width="60">ID</th>
+            <th>{$lang.sys.title|uppercase}</th>
+            <th>{$lang.sys.size|uppercase}</th>
+            <th>{$lang.module.price|uppercase}</th>
+            <th align="right"></th>
+        </tr>
+    </thead>
+    <tbody>
+      {loop="$zones"}
+        <tr>
+            <td>{$value.id}</td>
+            <td>{$value.title} <small>{banner::{$value.id}}</small></td>
+            <td>{$value.width} <small>px</small> x {$value.height} <small>px</small></td>
+            <td><span class="currency" id="price_{$value.id}">{$value.price}</span></td>
+            <td class="right">       
+              <a onclick="get_zone_price('{$value.id}')" class="button tiny success" data-reveal-id="price"><i class="fa fa-money"></i> Ár frissítése</a>
+            </td>
+        </tr>
+      {/loop}
+    </tbody>
+</table>
+
+<div id="price" class="reveal-modal" data-reveal>
+  <h2>Banner zóna ára</h2>
+  <div class="row">
+    <div class="large-10 columns">
+      <label>
+        <input type="text" name="zone_price" id="zone_price" placeholder="" >
+      </label>
+    </div>
+    <div class="large-2 columns">
+      <a class="button tiny success"><i class="fa fa-save"></i> Frissítés</a>
+    </div>
+  </div>
+  <input type="hidden" name="zone_id" id="zone_id">
+  <a class="close-reveal-modal" onClick="update_zone_price()">&#215;</a>
+</div>
+
+<script>
+$(document).ready(function() { 
+   $('.currency').formatCurrency({
+      positiveFormat : '%n,- %s',
+      digitGroupSymbol : '.',
+      symbol : 'Ft',
+      roundToDecimalPlace : 0
+   });
+});
+
+function get_zone_price(id){
+   $("#zone_price").val('Aktuális ár betöltése...');
+   $("#zone_id").val(id);
+   loading();
+   $.ajax({
+     type: "POST",
+     url: "{$_C.liveadmin}/modules/banners/ajax.php",
+     data: {secure : '{$_C.secure}', command : 'get_zone_price', id:id},
+     dataType : 'html',
+   }).done(function(data) {
+      $("#zone_price").val(data);
+      loaded();
+   });
+}
+
+function update_zone_price(){
+   loading();
+   var id = $("#zone_id").val();
+   var price = $("#zone_price").val();
+   $.ajax({
+     type: "POST",
+     url: "{$_C.liveadmin}/modules/banners/ajax.php",
+     data: {secure : '{$_C.secure}', command : 'update_zone_price', id:id, price:price},
+     dataType : 'html',
+   }).done(function(data) {
+      $('#price_'+id).html(price);
+   });
+}
+</script>

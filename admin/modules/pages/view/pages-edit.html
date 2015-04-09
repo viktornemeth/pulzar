@@ -1,0 +1,81 @@
+<div class="tools">
+   <h1>Tartalom</h1>
+   <a href="{$_C.liveadmin}/pages/~new~/edit" class="button tiny success"><i class="fa fa-plus"></i> {$lang.sys.add_new}</a>
+</div>
+<form id="mainform" data-abide="ajax">
+    <div class="row">
+         <div class="small-2 large-2 columns">
+            <label><br/>
+              <select name="language" id="language">
+                <option value="hu">Magyar</option>
+              </select>
+            </label>
+        </div>
+        <div class="small-6 large-4 columns">
+            <div class="title-field">
+                <label>{$lang.sys.title|uppercase} <small>{$lang.validate.required|capitalize}</small>
+                    <input type="text" id="title" name="title" autocomplete="off" required value="{$page.title}" {if="$id=='~new~'"}onChange="check('url_id', 'pages')"{/if}>
+                </label>
+                <small class="error">{$lang.validate.required_field|capitalize}</small>
+            </div>
+        </div>
+        <div class="small-4 large-3 columns">
+            <div class="url_id-field">
+                <label>URL ID <small>{$lang.validate.required|capitalize}</small>
+                    <input type="text" name="url_id" id="url_id" autocomplete="off" pattern="url_id" {if="$id=='~new~'"}onChange="check('url_id', 'pages')" value="" required{else}value="{$id}" class="readonly" readonly{/if}>
+                </label>
+                <small class="error">{$lang.validate.invalid_url_id|capitalize}</small>
+            </div>
+         </div>
+         <div class="small-6 large-3 columns" align="right">
+            <br/>
+            <button onclick="save('mainform', '{$id}', 'pages')" id="submit" class="button tiny success"><i class="fa fa-save"></i> {$lang.sys.save|capitalize}</button> 
+            <a href="{$_C.liveadmin}/pages" class="button tiny alert"><i class="fa fa-times"></i> {$lang.sys.cancel|capitalize}</a>
+         </div>
+     </div>
+    
+    <div class="row">
+      <div class="large-12 columns">
+        <ul class="tabs" data-tab>
+          <li class="tab-title active"><a href="#panel-page">{$lang.sys.content|uppercase}</a></li>
+          <li class="tab-title"><a href="#panel-meta">META / SEO</a></li>
+        </ul>
+        
+        <div class="tabs-content">
+          <div class="content active" id="panel-page">
+             <fieldset>
+             <legend>HTML {$lang.content}</legend>
+             <textarea class="ckeditor" id="editor" name="content">{$page.text}</textarea>
+             </fieldset>
+          </div>
+          <div class="content" id="panel-meta">
+             <fieldset>
+             <legend>META</legend>
+                <div class="title-field">
+                   <label>TITLE {$lang.sys.prefix|capitalize}
+                       <input type="text" name="meta_prefix" id="meta_prefix" value="{$meta.prefix}">
+                   </label>
+                </div>
+                <div class="keywords-field">
+                   <label>META {$lang.sys.keywords|capitalize} <small>{$lang.sys.example}: {$lang.sys.keyword}1, {$lang.sys.keyword}2, {$lang.sys.keyword}3</small>
+                       <input type="text" name="meta_keywords" id="meta_keywords" value="{$meta.keywords}">
+                   </label>
+                </div>
+                <div class="description-field">
+                   <label>META {$lang.sys.description|capitalize}
+                       <input type="text" name="meta_description" id="meta_description" value="{$meta.description}">
+                   </label>
+                </div>
+             </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+<script>
+$( "#title" ).keyup(function() {
+   if ("{$id}"=="~new~") {
+      convert_url_id('#title', '#url_id');
+   }
+});
+</script>

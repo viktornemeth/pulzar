@@ -1,0 +1,219 @@
+<div class="tools">
+   <h1>{$lang.auth.first_name|uppercase} {$lang.auth.last_name|uppercase}</h1>
+   <a href="{$_C.liveadmin}/users/~new~/edit" class="button tiny success"><i class="fa fa-plus"></i> {$lang.sys.add_new}</a>
+</div>
+{if="$access_types.dev!=1 && $access_types.su!=1"}
+<form id="mainform" data-abide="ajax">
+    <div class="row">
+         <div class="small-2 large-1 columns">
+            <div class="title-field">
+                <label>ID
+                    <input type="text" name="id" value="{$u.id}" readonly>
+                </label>
+            </div>
+        </div>
+        <div class="small-5 large-4 columns">
+            <div class="first-name-field">
+                <label>{$lang.auth.first_name|uppercase} <small>{$lang.validate.required|capitalize}</small>
+                    <input type="text" name="first_name" id="first_name" autocomplete="off" required value="{$u.first_name}">
+                </label>
+                <small class="error">{$lang.validate.required_field|capitalize}</small>
+            </div>
+        </div>
+        <div class="small-5 large-4 columns">
+            <div class="last-name-field">
+                <label>{$lang.auth.last_name|uppercase} <small>{$lang.validate.required|capitalize}</small>
+                    <input type="text" name="last_name" id="last_name" autocomplete="off" required value="{$u.last_name}">
+                </label>
+                <small class="error">{$lang.validate.required_field|capitalize}</small>
+            </div>
+         </div>
+         <div class="small-6 large-3 columns" align="right">
+            <br/>
+            
+            <button onclick="save('mainform', '{$id}', 'users', 'reload')" id="submit" class="button tiny success"><i class="fa fa-save"></i> {$lang.sys.save|capitalize}</button> 
+            <a href="{$_C.liveadmin}/users" class="button tiny alert"><i class="fa fa-times"></i> {$lang.sys.cancel|capitalize}</a>
+         </div>
+     </div>
+    
+    <div class="row">
+      <div class="large-12 columns">
+        <ul class="tabs" data-tab>
+          <li class="tab-title active"><a href="#panel-profile">{$lang.sys.profile|uppercase}</a></li>
+          <li class="tab-title"><a href="#panel-access">{$lang.auth.access|uppercase}</a></li>
+          <li class="tab-title"><a href="#panel-password">{$lang.auth.password|uppercase}</a></li>
+          <li class="tab-title"><a href="#panel-register">{$lang.auth.register|uppercase}</a></li>
+        </ul>
+        
+        <div class="tabs-content">
+          <div class="content active" id="panel-profile">
+            <fieldset>
+            <legend>{$lang.sys.personal|capitalize}</legend>
+            <div class="row">
+               <div class="large-4 columns">
+                <div class="birth-field">
+                  <label>{$lang.sys.gender|capitalize}
+                     <select name="gender" id="gender">
+                      <option value="not-set" {if="$u.gender=='not-set'"}selected{/if}>{$lang.sys.not_set|capitalize}</option>
+                      <option value="male" {if="$u.gender=='male'"}selected{/if}>{$lang.sys.male|capitalize}</option>
+                      <option value="female" {if="$u.gender=='female'"}selected{/if}>{$lang.sys.female|capitalize}</option>
+                      <option value="other" {if="$u.gender=='other'"}selected{/if}>{$lang.sys.other|capitalize}</option>
+                    </select>
+                  </label>
+                </div>
+               </div>
+               <div class="large-4 columns">
+                <div class="nick-field">
+                  <label>{$lang.auth.nick|capitalize}
+                     <input type="text" name="nick" id="nick" autocomplete="off" value="{$u.nick}" >
+                  </label>
+                </div>
+               </div>
+               <div class="large-4 columns">
+                <div class="birth-field">
+                  <label>{$lang.sys.birthday|capitalize}
+                     <input type="text" name="birthday" id="datepicker" autocomplete="off" value="{$u.birthday}" >
+                  </label>
+                </div>
+               </div>
+            </div>
+            </fieldset>
+            <fieldset>
+             <legend>{$lang.sys.contact|capitalize}</legend>
+             <div class="email-field">
+               <label>{$lang.sys.email|capitalize} <small>{$lang.validate.required|capitalize}</small>
+                  <input type="text" name="email" id="email" autocomplete="off" {if="$id=='~new~'"}onChange="check('email', 'users')" required{else}value="{$u.email}" readonly{/if}>
+               </label>
+               {if="$id=='~new~'"}<small class="error">{$lang.validate.required_field|capitalize}</small>{/if}
+            </div>
+            <div class="phone-field">
+               <label>{$lang.sys.phone|capitalize}
+                  <input type="text" name="phone" id="phone" autocomplete="off" value="{$u.phone}" >
+               </label>
+            </div>
+            </fieldset>
+            <fieldset>
+             <legend>{$lang.sys.billing_info|capitalize}</legend>
+             <div class="row">
+               <div class="large-4 columns">
+                  <label>{$lang.sys.name|capitalize}
+                    <input type="text" name="billing_name" id="billing_name" value="{$u.billing_name}">
+                  </label>
+               </div>
+               <div class="large-1 columns">
+                  <label>{$lang.sys.zip|uppercase}
+                    <input type="text" name="billing_zip" id="billing_zip" value="{$u.billing_zip}">
+                  </label>
+               </div>
+               <div class="large-3 columns">
+                  <label>{$lang.sys.city|capitalize}
+                    <input type="text" name="billing_city" id="billing_city" value="{$u.billing_city}">
+                  </label>
+               </div>
+               <div class="large-4 columns">
+                  <label>{$lang.sys.address|capitalize}
+                    <input type="text" name="billing_address" id="billing_address" value="{$u.billing_address}">
+                  </label>
+               </div>
+             </div>
+            </fieldset>
+            
+            <fieldset>
+             <legend>{$lang.sys.delivery_info|capitalize}</legend>
+             <div class="row">
+               <div class="large-4 columns">
+                  <label>{$lang.sys.name|capitalize}
+                    <input type="text" name="mailing_name" id="mailing_name" value="{$u.mailing_name}">
+                  </label>
+               </div>
+               <div class="large-1 columns">
+                  <label>{$lang.sys.zip|uppercase}
+                    <input type="text" name="mailing_zip" id="mailing_zip" value="{$u.mailing_zip}">
+                  </label>
+               </div>
+               <div class="large-3 columns">
+                  <label>{$lang.sys.city|capitalize}
+                    <input type="text" name="mailing_city" id="mailing_city" value="{$u.mailing_city}">
+                  </label>
+               </div>
+               <div class="large-4 columns">
+                  <label>{$lang.sys.address|capitalize}
+                    <input type="text" name="mailing_address" id="mailing_address" value="{$u.mailing_address}">
+                  </label>
+               </div>
+             </div>
+            </fieldset>
+          </div>
+          <div class="content" id="panel-access">
+          <fieldset>
+             <legend>{$lang.sys.status|capitalize}</legend>
+             <div class="row">
+                <div class="large-12 columns">
+                  <label>
+                    <select name="status" id="status">
+                      <option value="inactive" {if="$u.status=='inactive'"}selected{/if}>{$lang.sys.inactive|capitalize}</option>
+                      <option value="active" {if="$u.status=='active'"}selected{/if}>{$lang.sys.active|capitalize}</option>
+                      <option value="muted" {if="$u.status=='muted'"}selected{/if}>{$lang.sys.muted|capitalize}</option>
+                      <option value="banned" {if="$u.status=='banned'"}selected{/if}>{$lang.sys.banned|capitalize}</option>
+                    </select>
+                  </label>
+                </div>
+              </div>
+          </fieldset>
+          <fieldset>
+             <legend>{$lang.module.default_accesses|capitalize}</legend>
+                <div class="large-4 columns"> {$lang.sys.administrator|capitalize}
+                  <div class="switch round small">
+                     <input id="acc_admin" name="acc_admin" type="checkbox" value="1" {if="$access_types.admin==1"}checked{/if}>
+                     <label for="acc_admin"></label>
+                  </div>
+                </div>
+                <div class="large-4 columns"> Super User
+                  <div class="switch round small">
+                     <input id="acc_su" name="acc_su" type="checkbox" value="1" {if="$access_types.su==1"}checked{/if}>
+                     <label for="acc_su"></label>
+                  </div>
+                </div>
+                <div class="large-4 columns"> {$lang.sys.developer|capitalize}
+                  <div class="switch round small">
+                     <input id="acc_dev" name="acc_dev" type="checkbox" value="1" {if="$access_types.dev==1"}checked{/if}>
+                     <label for="acc_dev"></label>
+                  </div>
+                </div>
+          </fieldset>
+          </div>
+          <div class="content" id="panel-password">
+            <fieldset>
+             <legend>{$lang.module.password_change|capitalize}</legend>
+                <div class="row">
+                   <div class="large-3 columns">
+                      <label>{$lang.auth.password|capitalize} <small>{$lang.module.blank_if_dont_want_to_change|capitalize}</small>
+                          <input type="password" name="password" id="password" autocomplete="off">
+                      </label>
+                   </div>
+                   <div class="large-3 columns"><br/>
+                      <a class="button tiny success" onclick="change_user_password('{$id}')"><i class="fa fa-key"></i> {$lang.sys.change|capitalize}</a>
+                   </div>
+                   <div class="large-6 columns">
+                   </div>
+                </div>
+             </fieldset>
+          </div>
+          <div class="content" id="panel-register">
+             <fieldset>
+                <legend>{$lang.auth.registrated|capitalize}</legend>
+               <strong>{$lang.auth.registrated|capitalize}:</strong> {$u.reg_date}<br/>
+               <strong>IP:</strong> {$u.reg_ip}<br/>
+               <strong>{$lang.auth.register|capitalize} {$lang.sys.type}:</strong> {$u.reg_type}
+            </fieldset>
+          </div>
+        </div>
+      </div>
+    </div>
+</form>
+{else}
+<div data-alert class="alert-box alert">
+  {$lang.module.dev_and_su_not_editable}
+  <a href="#" class="close">&times;</a>
+</div>
+{/if}

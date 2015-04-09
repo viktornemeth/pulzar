@@ -1,0 +1,33 @@
+<div class="tools">
+   <h1>Tartalmak</h1>
+   <a href="{$_C.liveadmin}/pages/~new~/edit" class="button tiny success"><i class="fa fa-plus"></i> {$lang.sys.add_new}</a>
+</div>
+<table cellpadding="0" cellspacing="0" width="100%">
+    <thead>
+        <tr>
+            <th width="60">ID</th>
+            <th>{$lang.sys.title|uppercase}</th>
+            <th align="right"></th>
+        </tr>
+    </thead>
+    <tbody>
+      {loop="$pages"}
+        <tr id="object_{$value.id}">
+            <td>{$value.id}</td>
+            <td>{$value.title} <small>/page/{$value.url_id}</small></td>
+            <td class="right">       
+               <a href="{$_C.liveadmin}/pages/{$value.url_id}/edit" class="button tiny success"><i class="fa fa-pencil"></i> {$lang.sys.edit|capitalize}</a>
+               
+               <a onclick="del_confirm('{$value.id}')" 
+               class="button tiny alert delete-confirm-button"
+               id="delete-confirm-button-{$value.id}">
+               <i class="fa fa-times"></i> {$lang.sys.delete|capitalize}</a>
+               <span class="delete-confirm" id="delete-confirm-{$value.id}">
+               <a onclick="del('pages', '{$value.id}')" class="button tiny alert"><i class="fa fa-check"></i> {$lang.sys.confirm|capitalize}</a>
+               </span>
+               
+            </td>
+        </tr>
+      {/loop}
+    </tbody>
+</table>

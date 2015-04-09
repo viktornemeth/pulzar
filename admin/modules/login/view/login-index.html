@@ -1,0 +1,43 @@
+<div class="login-box">
+    <h1>{$_C.sitename} {$lang.sys.administration}<br/> &copy; {function="date('Y')"}</h1>
+    <form id="form-login" data-abide="ajax" onSubmit="login()">
+        <div class="email-field">
+            <input name="email" type="text" id="email" placeholder="{$lang.sys.email|capitalize}" required> 
+            </label>
+            <small class="error">{$lang.validate.email_required|capitalize}</small>
+        </div>
+        <div class="password-field">
+            <input name="password" type="password" id="password" placeholder="{$lang.auth.password|capitalize}" required>
+            </label>
+            <small class="error">{$lang.validate.password_required|capitalize}</small>
+        </div>
+        <button class="button small expand" type="submit">{$lang.auth.login|capitalize}</button>
+    </form>
+</div>
+
+<script>
+function login() {
+   $('#form-login').on('valid.fndtn.abide', function () {
+      var submitdata = $("#form-login").serializeArray();
+       $.ajax({
+           type: "POST",
+           url: "{$_C.liveadmin}/modules/{$module}/ajax.php",
+           data: {secure : '{$_C.secure}', command : "authenticate", submitdata : submitdata},
+           dataType : 'html',
+       }).done(function(data) {
+           if (data=='true'){
+              window.location.href = '{$_C.liveadmin}';
+           } else {
+              notify('alert', '{$lang.notify.wrong_username_or_password|capitalize}', 2000);
+           }
+       });
+   });
+}
+
+$(document).keypress(function(event){
+	var keycode = (event.keyCode ? event.keyCode : event.which);
+	if(keycode == '13'){
+		login();	
+	}
+});
+</script>

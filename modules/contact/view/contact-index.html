@@ -1,0 +1,20 @@
+<h1>{$L_contact}</h1>
+
+<form method="post" id="contactForm" class="validate" action="{$LIVESITE}/contact/send" >
+<fieldset>
+<label>{$L_name}</label>
+<input type="text" name="name" id="name" class="required" placeholder="{$L_name}" />
+<label>{$L_telephone}</label>
+<input type="text" name="telephone" id="telephone" placeholder="{$L_telephone}" />
+<label>{$L_email}</label>
+<input type="text" name="email" id="email" class="required email" placeholder="{$L_email}" />
+<label>{$L_subject}</label>
+<input type="text" name="subject" id="subject" class="required" placeholder="{$L_subject}" />
+<label>{$L_message}</label>
+<textarea name="message" id="message" class="required" placeholder="{$L_message}"></textarea>
+</fieldset><br/>
+<div class="submit"><input type="submit" value="{$L_send}" /></div>
+</form>
+
+<br/>
+{$contact}

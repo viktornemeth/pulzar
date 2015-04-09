@@ -1,0 +1,37 @@
+RewriteEngine on
+
+Options +FollowSymlinks
+
+# Block out any script trying to base64_encode data within the URL.
+RewriteCond %{QUERY_STRING} base64_encode[^(]*\([^)]*\) [OR]
+
+# Block out any script that includes a <script> tag in URL.
+RewriteCond %{QUERY_STRING} (<|%3C)([^s]*s)+cript.*(>|%3E) [NC,OR]
+
+# Block out any script trying to set a PHP GLOBALS variable via URL.
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR]
+
+# Block out any script trying to modify a _REQUEST variable via URL.
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2})
+
+# Return 403 Forbidden header and show the content of the root homepage
+RewriteRule .* index.php [F]
+
+# Base Directory
+RewriteBase /hajdupress/admin
+
+# Url with www
+#RewriteCond %{HTTP_HOST} !^www\.
+#RewriteRule ^(.*)$ http://www.%{HTTP_HOST}/$1 [R=301,L]
+
+# Slashes
+RewriteCond %{THE_REQUEST} ^[A-Z]+\ //*(.+)//+(.*)\ HTTP
+RewriteRule ^ /%1/%2 [R=301,L]
+RewriteCond %{THE_REQUEST} ^[A-Z]+\ //+(.*)\ HTTP
+RewriteRule ^ /%1 [R=301,L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Rewrite rule
+RewriteRule ^(.*)$ index.php?q=$1 [QSA,L]

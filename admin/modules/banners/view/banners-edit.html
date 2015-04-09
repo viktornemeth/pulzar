@@ -1,0 +1,109 @@
+<div class="tools">
+   <h1>Banner</h1>
+   <a href="{$_C.liveadmin}/banners/~new~/edit" class="button tiny success"><i class="fa fa-plus"></i> {$lang.sys.add_new}</a>
+</div>
+<form id="mainform" data-abide="ajax">
+    <div class="row">
+        <div class="small-5 large-5 columns">
+             <label>{$lang.sys.title|uppercase} <small>{$lang.validate.required|capitalize}</small>
+                 <input type="text" id="title" name="title" autocomplete="off" required value="{$banner.title}">
+             </label>
+             <small class="error">{$lang.validate.required_field|capitalize}</small>
+        </div>
+        <div class="small-2 large-2 columns" style="padding-top:20px;">
+            {$banner.appearance} {$lang.module.appearance}<br/>
+            {$banner.clicks} {$lang.module.clicks}
+         </div>
+         <div class="small-2 large-2 columns" style="padding-top:20px;">
+            <h3>CTR: {$banner.ctr}%</h3>
+         </div>
+         <div class="small-6 large-3 columns" align="right">
+            <br/>
+            <button onclick="save('mainform', '{$id}', '{$module}', 'reload')" id="submit" class="button tiny success"><i class="fa fa-save"></i> {$lang.sys.save|capitalize}</button> 
+            <a href="{$_C.liveadmin}/banners" class="button tiny alert"><i class="fa fa-times"></i> {$lang.sys.cancel|capitalize}</a>
+         </div>
+     </div>
+   <fieldset>
+   <legend>{$lang.module.creative|capitalize}</legend>
+   <div data-alert id="adsense_info" class="alert-box info">
+     {$lang.module.adsense_info|capitalize}
+     <a href="#" class="close">&times;</a>
+   </div>
+   <div class="banner_creative">
+   {if="$banner.file==''"}
+      <a class="postfix button tiny" id="browse_button" onclick="openKCFinder('banner_file', '/banners')">
+         <i class="fa fa-folder-open"></i> {$lang.sys.browse|capitalize}
+       </a>
+       <input type="hidden" id="banner_file" name="banner_file"/>
+   {else}
+      
+      {if="$banner.type=='image'"}
+         <img src="{$_C.livesite}{$banner.file}" width="{$zone.width}" height="{$zone.height}" />
+      {elseif="$banner.type=='flash'"}
+         <object data="{$_C.livesite}{$banner.file}"  width="{$zone.width}" height="{$zone.height}"></object>
+      {/if}
+   {/if}
+   </div>
+   </fieldset>
+   
+   <fieldset>
+   <legend>{$lang.module.site_target|capitalize}</legend>
+   <div class="row">
+      <div class="small-12 large-4 columns">
+        <select name="zone" id="zone" {if="$id!='~new~'"}disabled{/if}>
+          {loop="$zones"}
+          <option value="{$value.id}" {if="$value.id==$banner.zone"}selected{/if}>
+            {$value.title} ({$value.width}x{$value.height})
+          </option>
+          {/loop}
+        </select>
+      </div>
+      <div class="small-6 large-3 columns">
+        <select name="source" id="source" onChange="change_source()">
+          <option value="unique" {if="$banner.source=='site'"}selected{/if}>{$lang.module.unique_source|capitalize}</option>
+          <option value="adsense" {if="$banner.source=='adsense'"}selected{/if}>AdSense</option>
+        </select>
+      </div>
+      <div class="small-6 large-5 columns">
+         <label>
+           <input type="text" name="url" id="url" value="{$banner.target}" placeholder="URL">
+         </label>
+      </div>
+   </div>
+   </fieldset>
+   
+   <fieldset>
+   <legend>{$lang.module.interval|capitalize}</legend>
+   <div class="row">
+      <div class="small-5 large-5 columns">
+      <input type="text" class="datepicker" id="start" name="start" value="{$banner.start_date}" required>
+      <small class="error">{$lang.validate.required_field|capitalize}</small>
+      </div>
+      <div class="small-1 large-1 columns" align="center">
+         <i class="fa fa-2x fa-long-arrow-right"></i>
+      </div>
+      <div class="small-6 large-6 columns">
+      <input type="text" class="datepicker" id="end" name="end" value="{$banner.end_date}" required>
+      <small class="error">{$lang.validate.required_field|capitalize}</small>
+      </div>
+   </div>
+   </fieldset>
+</form>
+<script>
+$(document).ready(function(){
+   change_source();
+});
+
+function change_source() {
+   source = $("#source").val();
+   if (source == 'adsense') {
+      $('#url').attr("readonly", true);
+      $('.banner_creative').hide();
+      $('#adsense_info').show();
+   } else {
+      $('#url').removeAttr("readonly");
+      $('.banner_creative').show();
+      $('#adsense_info').hide();
+   }
+}
+</script>

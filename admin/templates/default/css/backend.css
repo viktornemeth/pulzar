@@ -1,0 +1,289 @@
+/* CSS Document */
+small{
+    font-size:11px;
+    line-height:2px;
+    color:#888;
+}
+header{
+    padding: 7px 10px;
+    height: 55px;
+    background: white;
+    border-bottom:1px solid #ddd;
+    color: white;
+    position: fixed;
+    top:0;
+    z-index:1;
+    left:125px;
+    width:calc(100% - 125px);
+}
+.tools{
+   position:fixed;
+   top:0px;
+}
+.page-title{
+   position:fixed;
+   z-index:99;
+   font-size:20px;
+   color:#444;
+   top:10px;
+   left:135px;
+}
+
+header .header-toolbar{
+    position:absolute;
+    top:10px;
+    right:10px;
+}
+h1{
+   float:left;
+   margin-right:10px;
+   font-size:20px;
+}
+.login-bg{
+   background:#222;
+}
+.login-box{
+    position:absolute;
+    width:300px;
+    height:500px;
+    left:50%;
+    margin-left:-150px;
+    margin-top:20%;
+}
+.login-box h1{
+    font-size:11px;
+    position:fixed;
+    bottom:20px;
+    color:#999;
+    width:300px;
+    text-align:center;
+}
+.menubar{
+    width:125px;
+    height:100%;
+    position: fixed;
+    top:0;
+    left:0;
+    z-index: 5;
+}
+.menubar .icon-bar{
+    width:125px;
+}
+.content-wrapper{
+    position: absolute;
+    top:55px;
+    left:125px;
+    z-index: 0;
+    width:calc(100% - 125px);
+    height:calc(100% - 55px);
+    background: white;
+    padding:8px;
+}
+
+footer{
+    position:fixed;
+    bottom:0px;
+    right:0px;
+    font-size:9px;
+    padding:2px 10px;
+    background-color:#eee;
+    color:#999;
+    z-index:99999;
+}
+.access-box{
+   float:left;
+   width:18%;
+   padding:1%;
+}
+table tr.top-article{
+   background-color:#008cba;
+}
+.top-article td, .top-article td small{
+   color:white;
+}
+
+.drag-handle{
+   font-size:25px;
+}
+.connected, .sortable, .exclude, .handles {
+   margin: auto;
+   padding: 0;
+   -webkit-touch-callout: none;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -ms-user-select: none;
+   user-select: none;
+}
+.sortable.grid {
+   overflow: hidden;
+}
+.connected li, .sortable li, .exclude li, .handles li {
+   list-style: none;
+   border: 1px solid #CCC;
+   margin: 5px;
+   padding: 5px;
+}
+.handles span {
+   cursor: move;
+}
+li.disabled {
+   opacity: 0.5;
+}
+.sortable.grid li {
+   line-height: 80px;
+   float: left;
+   width: 80px;
+   height: 80px;
+   text-align: center;
+}
+li.highlight {
+   background: #FEE25F;
+}
+#connected {
+   width: 440px;
+   overflow: hidden;
+   margin: auto;
+}
+.connected {
+   float: left;
+   width: 200px;
+}
+.connected.no2 {
+   float: right;
+}
+li.sortable-placeholder {
+   border: 1px dashed #CCC;
+   background: #eee;
+}
+
+/* Notify */
+.notify{
+    display:none;
+    position:fixed;
+    width:300px;
+    left:50%;
+    margin-left:-150px;
+    top:10px;
+    z-index:9999;
+}
+
+/* FOUNDATION CORRECTION */
+.reveal-modal{
+   top:0px;
+}
+.thumb-btn{
+   display:block;
+   position:absolute;
+   background:white;
+   padding:5px 10px;
+}
+.thumb-btn-remove{
+   margin-left:36px;
+}
+.thumb-def{
+   background:none;
+}
+.thumb-def i{
+   color:#fff;
+}
+.tabs .tab-title a{
+    font-size:11px;
+}
+.tabs .tab-title.active{
+   border-top:4px solid #008cba;
+   margin-top:-4px;
+}
+.tabs .tab-title.active a{
+   color:#008cba;
+}
+.menubar label {
+   font-size:12px;
+}
+.menubar .icon-bar .item{
+   padding-top:15px;
+   padding-bottom:13px;
+}
+.menubar .icon-bar .item.active{
+   background-color:#008cba;
+}
+.row{
+    max-width:100%;
+}
+.inactive-row{
+   opacity:.6;
+}
+.columns{
+    padding:5px;
+}
+table{
+    width:100%;
+    border:none;
+}
+table .button{
+    margin-bottom:0px;
+}
+td.right{
+    text-align:right;   
+}
+tbody tr, thead tr {
+    border-bottom:1px solid #ddd;
+}
+table thead tr th{
+    background:#bbb;
+    color:white;
+}
+.clearing-blackout{
+    top:55px;
+    left:125px;
+    z-index: 0;
+    width:calc(100% - 125px);
+    height:calc(100% - 55px);
+}
+.switch.alert input:checked + label {
+    background: #f04124; }
+
+.file-button {
+    position: relative;
+    overflow: hidden;
+    background: ...; /* and other things to make it pretty */
+}
+
+.file-button input {
+    position: absolute;
+    top: 0;
+    right: 0; /* not left, because only the right part of the input seems to
+                 be clickable in some browser I can't remember */
+    cursor: pointer;
+    opacity: 0.0;
+    filter: alpha(opacity=0); /* and all the other old opacity stuff you
+                                 want to support */
+    font-size: 300px; /* wtf, but apparently the most reliable way to make
+                         a large part of the input clickable in most browsers */
+    height: 200px;
+}
+.inbox-buttons{
+   position:absolute;
+}
+
+/* CROPIT */
+
+/* Hide file input */
+input.cropit-image-input {
+  visibility: hidden;
+}
+.cropit-image-preview {
+  background-color: #f8f8f8;
+  background-size: cover;
+  border: 1px solid #ddd;
+  margin-top: 7px;
+  cursor: move;
+  width: 750px;
+  height: 450px;
+  margin-bottom:5px;
+}
+
+.cropit-image-background {
+  opacity: .2;
+  cursor: auto;
+}

@@ -1,0 +1,53 @@
+<div class="tools">
+   <h1>Felhasználók</h1>
+   <a href="{$_C.liveadmin}/users/~new~/edit" class="button tiny success"><i class="fa fa-plus"></i> {$lang.sys.add_new}</a>
+</div>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th width="80">ID</th>
+            <th>{$lang.sys.name|capitalize}</th>
+            <th width="1"> </th>
+            <th>Email</th>
+            <th>{$lang.auth.registrated|capitalize}</th>
+            <th>{$lang.sys.type|capitalize}</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        {loop="$users"}
+        <tr id="object_{$value.id}" {if="$value.status=='banned'"}class="danger"{elseif="$value.status=='inactive'"}class="warning"{/if}>
+            <td>{$value.id}</td>
+            <td>{$value.first_name} {$value.last_name} {if="$value.nick!=''"}<small>aka. {$value.nick}</small>{/if}</td>
+            <td>
+                {if="$value.gender=='male'"}<i class="fa fa-male"></i>
+                {elseif="$value.gender=='female'"}<i class="fa fa-female"></i>
+                {else}<i class="fa fa-question"></i>{/if}
+            </td>
+            <td>{if="$value.type!='dev'"}<span class="email">{$value.email}</span>{/if}</td>
+            <td><small>{$value.reg_date}</small></td>
+            <td>
+               {if="$value.type=='admin'"}{$lang.sys.administrator|capitalize}
+               {elseif="$value.type=='su'"}Super User
+               {elseif="$value.type=='dev'"}{$lang.sys.developer|capitalize}
+               {/if}
+            </td>
+            <td class="right">
+               {if="$value.type=='su' || $value.type=='dev'"}
+               {else}
+              <a href="{$_C.liveadmin}/users/{$value.id}/edit" class="button tiny success"><i class="fa fa-pencil"></i> {$lang.sys.edit|capitalize}</a>
+              
+              <a onclick="del_confirm('{$value.id}')" 
+               class="button tiny alert delete-confirm-button"
+               id="delete-confirm-button-{$value.id}">
+               <i class="fa fa-times"></i> {$lang.sys.delete|capitalize}</a>
+               <span class="delete-confirm" id="delete-confirm-{$value.id}">
+               <a onclick="del('users', '{$value.id}')" class="button tiny alert"><i class="fa fa-check"></i> {$lang.sys.confirm|capitalize}</a>
+               </span>
+                
+              {/if}
+            </td>
+        </tr>
+        {/loop}
+    </tbody>
+</table>
