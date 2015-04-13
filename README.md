@@ -1,4 +1,4 @@
-Pulzar3
+Pulzar3 (chakra CMS)
 =======
 lightweight CMS
 
