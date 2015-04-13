@@ -15,10 +15,6 @@
 // Autoload plugins
 require_once $_C['siteroot']."/plugins/load-plugins.php";
 ?>
-<script src="<?php echo $_C['livesite']; ?>/plugins/cropit/dist/jquery.cropit.min.js"></script>
-<script src="<?php echo $_C['site_template_url']; ?>/js/video.js"></script>
-<script src="<?php echo $_C['site_template_url']; ?>/js/jquery.slides.min.js"></script>
-<script src="<?php echo $_C['site_template_url']; ?>/js/hajdupress.js"></script>
 <!-- ANALYTICS -->
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
